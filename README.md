@@ -1,4 +1,6 @@
-# Locks user accounts and IP addresses after repeated failed login attempts
+# Lockout
+
+Locks user accounts and IP addresses after repeated failed login attempts.
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/mralston/lockout.svg?style=flat-square)](https://packagist.org/packages/mralston/lockout)
 [![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/mralston/lockout/run-tests?label=tests)](https://github.com/mralston/lockout/actions?query=workflow%3Arun-tests+branch%3Amain)
