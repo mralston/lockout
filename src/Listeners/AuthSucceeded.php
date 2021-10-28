@@ -13,10 +13,7 @@ class AuthSucceeded
             return;
         }
 
-        $failure = AuthFailure::firstWhere('user_id', $event->user->id);
-
-        if (!empty($failure) && $failure->attempts < intval(config('lockout.max_attempts'))) {
-            $failure->delete();
-        }
+        AuthFailure::where('user_id', $event->user->id)
+            ->delete();
     }
 }

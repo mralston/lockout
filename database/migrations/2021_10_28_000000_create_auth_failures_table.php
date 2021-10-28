@@ -10,8 +10,10 @@ return new class extends Migration
     {
         Schema::create('auth_failures', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->unique();
-            $table->integer('attempts')->default(0);
+            $table->unsignedBigInteger('user_id')->nullable()->index();
+            $table->string('email')->nullable()->index();
+            $table->ipAddress('ip_address')->index();
+            $table->string('user_agent');
             $table->timestamps();
         });
     }

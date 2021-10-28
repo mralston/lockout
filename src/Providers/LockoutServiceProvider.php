@@ -4,7 +4,7 @@ namespace Mralston\Lockout\Providers;
 
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\ServiceProvider;
-use Mralston\Lockout\Http\Middleware\Lockout as LockoutMiddleware;
+use Mralston\Lockout\Console\Prune;
 use Mralston\Lockout\Console\Unlock;
 
 class LockoutServiceProvider extends ServiceProvider
@@ -17,11 +17,11 @@ class LockoutServiceProvider extends ServiceProvider
     public function boot(Kernel $kernel)
     {
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations');
-        $kernel->pushMiddleware(LockoutMiddleware::class);
 
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Unlock::class,
+                Prune::class,
             ]);
 
             $this->publishes([
