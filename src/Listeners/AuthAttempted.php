@@ -35,14 +35,12 @@ class AuthAttempted
 
         // Lockout if client IP has made too many attempts
         if (AuthFailure::countIpFailures(request()->ip(), $ip_since ?? null) >= $max_attempts_ip) {
-            abort(403, 'Too many failed attempts');
+            abort(503); // Error message is deliberately vague
         }
 
         // Lockout if username has had too many failures
         if (AuthFailure::countEmailFailures($event->credentials[$username_field], $user_since ?? null) >= $max_attempts_user) {
-            Auth::logout();
-
-            abort(403, 'Too many failed attempts');
+            abort(503); // Error message is deliberately vague
         }
     }
 }
