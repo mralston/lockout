@@ -23,6 +23,10 @@ class LockoutServiceProvider extends ServiceProvider
             $this->commands([
                 Unlock::class,
             ]);
+
+            $this->publishes([
+                __DIR__.'/../../config/lockout.php' => config_path('lockout.php'),
+            ], 'config');
         }
     }
 
