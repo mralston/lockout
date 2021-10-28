@@ -18,7 +18,7 @@ class Lockout
 
                 Auth::logout();
 
-                abort(403, 'Your account has been locked.');
+                abort(403, 'Your account has been locked');
             }
         }
 
