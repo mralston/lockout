@@ -25,6 +25,9 @@ class AuthAttempted
         $lockout_duration_user = config('lockout.lockout_duration_user');
         $lockout_duration_ip = config('lockout.lockout_duration_ip');
 
+        $error_code = config('lockout.error_code');
+        $error_message = config('lockout.error_message');
+
         if (!empty($lockout_duration_user)) {
             $user_since = Carbon::now()->subSeconds($lockout_duration_user);
         }
@@ -35,12 +38,12 @@ class AuthAttempted
 
         // Lockout if client IP has made too many attempts
         if (AuthFailure::countIpFailures(request()->ip(), $ip_since ?? null) >= $max_attempts_ip) {
-            abort(403, 'Contact IT Support');
+            abort($error_code, $error_message);
         }
 
         // Lockout if username has had too many failures
         if (AuthFailure::countEmailFailures($event->credentials[$username_field], $user_since ?? null) >= $max_attempts_user) {
-            abort(403, 'Contact IT Support');
+            abort($error_code, $error_message);
         }
     }
 }
