@@ -10,7 +10,9 @@ use Mralston\Lockout\Models\AuthFailure;
 
 class AuthAttempted
 {
-    use AuthenticatesUsers;
+    use AuthenticatesUsers {
+        username as traitUsername;
+    }
 
     public function handle(Attempting $event)
     {
@@ -45,5 +47,10 @@ class AuthAttempted
         if (AuthFailure::countEmailFailures($event->credentials[$username_field], $user_since ?? null) >= $max_attempts_user) {
             abort($error_code, $error_message);
         }
+    }
+
+    public function username()
+    {
+        return config('lockout.username_field') ?? $this->traitUsername();
     }
 }

@@ -7,4 +7,5 @@ return [
     'lockout_duration_ip' => env('LOCKOUT_DURATION_IP', null),
     'error_code' => env('LOCKOUT_ERROR_CODE', '403'),
     'error_message' => env('LOCKOUT_ERROR_MESSAGE', 'Account Locked'),
+    'username_field' => env('LOCKOUT_USERNAME_FIELD'),
 ];

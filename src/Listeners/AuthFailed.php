@@ -8,7 +8,9 @@ use Mralston\Lockout\Models\AuthFailure;
 
 class AuthFailed
 {
-    use AuthenticatesUsers;
+    use AuthenticatesUsers {
+        username as traitUsername;
+    }
 
     public function handle(Failed $event)
     {
@@ -22,5 +24,10 @@ class AuthFailed
             'ip_address' => $request->ip(),
             'user_agent' => $request->userAgent(),
         ]);
+    }
+
+    public function username()
+    {
+        return config('lockout.username_field') ?? $this->traitUsername();
     }
 }
